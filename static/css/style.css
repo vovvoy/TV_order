@@ -1,0 +1,77 @@
+body {
+   background: #eee;
+}
+
+header {
+    background-color: #23394A;
+}
+
+
+label {
+    font-size: 32px;
+    text-align: center;
+    display: -webkit-box;
+    font-weight: bold;
+}
+
+select {
+    word-wrap: normal;
+    width: 150px;
+    height: 30px;
+    border-radius: 3px;
+}
+
+textarea {
+    outline: none;
+    -moz-appearance: none;
+    background: transparent !important;
+    width: 1000px;
+    border: 2px solid #23394a;
+}
+
+/*скрывает кнопку удалить всё*/
+.dlt-btn {
+    display: none
+}
+
+/* Вид селекта канала*/
+select#id_choice {
+    background-color: #23394a;
+    width: 200px;
+    height: 35px;
+    padding: 5px;
+    color: #Fff;
+}
+
+table{
+    margin: 0px;
+    text-align: center;
+}
+
+tbody {
+    font-size: 14px;
+}
+
+table tr, table td {
+    padding: .30rem !important;
+    border-top: 1px solid #dee2e6;
+    line-height: 18px;
+    border-left: 1px solid #b3aaaa;
+    border-right: 1px solid #b3aaaa;
+}
+
+/*footer {*/
+/*    position: absolute;*/
+/*    bottom: 40px;*/
+/*}*/
+nav.left-nav {
+    position: absolute;
+    bottom: -46px;
+    left: 600px;
+}
+
+.btn-toolbar.rigt-nav {
+    position: inherit;
+    left: 1000px;
+    bottom: -30px;
+}

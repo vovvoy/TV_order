@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+    <h1>Main</h1>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div style="margin-top:30px;">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <h5>Канал: </h5>{{ form.choice }}
+                    <hr>
+                    <h5>Текст сообщения: </h5>{{ form.text }}
+                    <hr>
+                    {{ form.date}}
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

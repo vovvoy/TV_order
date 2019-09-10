@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block content %}
+    <script language="JavaScript">
+        function toggle(source) {
+            checkboxes = document.getElementsByName('foo');
+            for (var checkbox in checkboxes)
+                checkbox.checked = source.checked;
+        }
+    </script>
+
+
+    <table class="table table-hover ">
+        <thead>
+        <tr>
+            <th width="10px"><input type="checkbox" id="chkDelete" onClick="toggle(this)"/></th>
+            <th width="50px">№</th>
+            <th width="190px">Дата создания</th>
+            {% if user.is_staff %}
+                <th>Автор</th>
+            {% endif %}
+            <th width="120px">Телеканал</th>
+            <th width="400px">Текст</th>
+            <th width="200px">Дата проката</th>
+            <th width="50px" style="font-size: 13px;">Кол. дней</th>
+            <th width="50px" style="font-size: 13px;">Кол. симв</th>
+            <th width="100px">Сумма</th>
+            {% if user.is_staff %}
+                <th>Статус</th>
+            {% endif %}
+
+        </tr>
+        </thead>
+        <tbody>
+        {% if user.is_staff %}
+            <form method="GET">
+                {{ filter.form|bootstrap }}
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        {% endif %}
+        {% for text in filter.qs reversed %}
+            {% if text.reception == False%}
+            {% if text.complete %}
+                <tr class="todo-completed">
+                    <td><input type="checkbox" name="foo" id=""
+                               onclick="location.href = '{% url 'complete' text.id %}'" checked></td>
+                    <td>{{ text.id }}</td><!-- № текста-->
+                    <td>{{ text.order_date }}</td> <!--Дата создания-->
+                    {% if user.is_staff %}
+                        <td>
+                            {{ text.author }}
+                        </td>
+                    {% endif %}
+
+                    <td>{{ text.choice }}</td> <!-- Телеканал -->
+                    <td style="text-align:left;">{{ text.text }}</td> <!-- Текст -->
+                    <td>{{ text.post_dates }}</td><!--Дата проката-->
+                    <td>{{ text.quantity_days }}</td> <!--Количество дней-->
+                    <td>{{ text.quantity_symbols }}</td> <!--Количество символов-->
+                    <td>{{ text.total_price }} сом</td> <!--Сумма -->
+                    {% if user.is_staff %}
+                        <td>
+                            {% if text.reception == False %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-dark">
+                                    Не подтвержден
+                                </a>
+                            {% else %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-success">
+                                    Подтвержден
+                                </a>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr class="todo-completed">
+                    <td><input type="checkbox" name="foo" id=""
+                               onclick="location.href = '{% url 'complete' text.id %}'"></td>
+                    <td>{{ text.id }}</td><!-- № текста-->
+                    <td>{{ text.order_date }}</td> <!--Дата создания-->
+                    {% if user.is_staff %}
+                        <td>
+                            {{ text.author }}
+                        </td>
+                    {% endif %}
+                    <td>{{ text.choice }}</td> <!-- Телеканал -->
+                    <td style="text-align:left;">{{ text.text }}</td> <!-- Текст -->
+                    <td>{{ text.post_dates }}</td><!--Дата проката-->
+                    <td>{{ text.quantity_days }}</td> <!--Количество дней-->
+                    <td>{{ text.quantity_symbols }}</td> <!--Количество символов-->
+                    <td>{{ text.total_price }} сом</td> <!--Сумма -->
+                    {% if user.is_staff %}
+                        <td>
+                            {% if text.reception == False %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-dark">
+                                    Не подтвержден
+                                </a>
+                            {% else %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-success">
+                                    Подтвержден
+                                </a>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+
+            {% endif %}
+            {% elif user.is_staff %}
+                {% if text.complete %}
+                <tr class="todo-completed">
+                    <td><input type="checkbox" name="foo" id=""
+                               onclick="location.href = '{% url 'complete' text.id %}'" checked></td>
+                    <td>{{ text.id }}</td><!-- № текста-->
+                    <td>{{ text.order_date }}</td> <!--Дата создания-->
+                    {% if user.is_staff %}
+                        <td>
+                            {{ text.author }}
+                        </td>
+                    {% endif %}
+
+                    <td>{{ text.choice }}</td> <!-- Телеканал -->
+                    <td style="text-align:left;">{{ text.text }}</td> <!-- Текст -->
+                    <td>{{ text.post_dates }}</td><!--Дата проката-->
+                    <td>{{ text.quantity_days }}</td> <!--Количество дней-->
+                    <td>{{ text.quantity_symbols }}</td> <!--Количество символов-->
+                    <td>{{ text.total_price }} сом</td> <!--Сумма -->
+                    {% if user.is_staff %}
+                        <td>
+                            {% if text.reception == False %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-dark">
+                                    Не подтвержден
+                                </a>
+                            {% else %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-success">
+                                    Подтвержден
+                                </a>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr class="todo-completed">
+                    <td><input type="checkbox" name="foo" id=""
+                               onclick="location.href = '{% url 'complete' text.id %}'"></td>
+                    <td>{{ text.id }}</td><!-- № текста-->
+                    <td>{{ text.order_date }}</td> <!--Дата создания-->
+                    {% if user.is_staff %}
+                        <td>
+                            {{ text.author }}
+                        </td>
+                    {% endif %}
+                    <td>{{ text.choice }}</td> <!-- Телеканал -->
+                    <td style="text-align:left;">{{ text.text }}</td> <!-- Текст -->
+                    <td>{{ text.post_dates }}</td><!--Дата проката-->
+                    <td>{{ text.quantity_days }}</td> <!--Количество дней-->
+                    <td>{{ text.quantity_symbols }}</td> <!--Количество символов-->
+                    <td>{{ text.total_price }} сом</td> <!--Сумма -->
+                    {% if user.is_staff %}
+                        <td>
+                            {% if text.reception == False %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-dark">
+                                    Не подтвержден
+                                </a>
+                            {% else %}
+                                <a style="padding: 0px .75rem;" href="{% url 'change_status' text.id %}" type="button"
+                                   class="btn btn-success">
+                                    Подтвержден
+                                </a>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+
+            {% endif %}
+            {% endif %}
+
+        {% endfor %}
+        </tbody>
+    </table>
+    <footer>
+        <div class="col-lg-12">
+            <nav class="left-nav">
+                <ul class="pagination justify-content-center pagination-sm ">
+                    <li class="page-item">
+                        {% if articles.has_previous %}
+                            <a class="link-btn btn btn-primary"
+                               href="?page={{ articles.previous_page_number }}">Пред.</a>
+                        {% endif %}
+
+                    </li>
+
+
+                    {% for num in articles.paginator.page_range %}
+                        {% if num == articles.number %}
+                            <li class="page-item"><span class="link-button btn btn-dark"><b>{{ num }}</b></span></li>
+                        {% else %}
+                            <li class="page-item"><a class="link-button btn btn-primary"
+                                                     href="?page={{ num }}"> {{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+
+
+                    <li class="page-item">
+                        {% if articles.has_next %}
+                            <a class="link-btn btn btn-primary" href="?page={{ articles.next_page_number }}">След.</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+
+
+            <div class="btn-toolbar rigt-nav">
+                <div class="btn-group">
+                    <a href="{% url 'deletecomplete' %}">
+                        <button type="button" class="btn btn-dark">
+                            Удалить выделенные
+                        </button>
+                    </a>
+                </div>
+                <div id="pnlDeleteAll" class="btn-group dlt-btn">
+
+{#                    <a href="{% url 'deleteall' %}">#}
+{#                        <button type="button" class="btn btn-dark">#}
+{#                            Удалить все#}
+{#                        </button>#}
+{#                    </a>#}
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function toggle() {
+            var div = document.getElementById('pnlDeleteAll');
+            if (this.checked)
+                div.style.display = 'block';
+            else
+                div.style.display = 'none'
+        }
+
+        document.getElementById('chkDelete').onchange = toggle;
+    </script>
+
+    <script>
+        function toggle(source) {
+            checkboxes = document.getElementsByName('foo');
+            for (var i = 0, n = checkboxes.length; i < n; i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p>Login: {{ form.username }}</p>
+    <p>Password: {{ form.password1 }}</p>
+    <p>Password(repeat): {{ form.password2 }}</p>
+    {% if form.password1 != form.password2 %}
+    {{ form.code }}
+    {% endif %}
+    <div class="form-button">
+        <button id="submit" type="submit" class="ibtn">Sign up</button>
+    </div>
+</form>
+{% endblock %}
